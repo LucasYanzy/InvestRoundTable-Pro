@@ -1,0 +1,32 @@
+# 数据获取
+yfinance>=0.2.40
+akshare>=1.14.0
+
+# 基本面数据（可选，增强功能）
+financialmodelingprep>=0.0.1  # 美股财报数据（需API Key）
+
+# 技术指标计算
+pandas-ta>=0.3.14b
+TA-Lib>=0.4.28           # 备选（需要先安装 C 库）
+
+# 数据处理
+pandas>=2.2.0
+numpy>=1.26.0
+
+# LLM 调用
+openai>=1.30.0           # 兼容 openai / deepseek / qwen 等
+
+# 异步
+aiohttp>=3.9.0
+
+# 可视化
+mplfinance>=0.12.10b0
+matplotlib>=3.8.0
+
+# Web 框架
+flask>=3.0.0
+markdown>=3.5.0
+
+# 工具
+python-dotenv>=1.0.0
+pydantic>=2.5.0
