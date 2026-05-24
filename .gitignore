@@ -32,7 +32,7 @@ Thumbs.db
 cache/
 *.pkl
 
-# Output (generated reports)
+# Output (generated reports — keep examples/)
 output/
 
 # Logs
@@ -43,3 +43,6 @@ output/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Gemini
+.gemini/

@@ -1,7 +1,11 @@
+"""全局配置（环境变量驱动）"""
+
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
+
+__version__ = "1.0.0"
 
 # LLM 配置
 LLM_API_BASE = os.getenv("LLM_API_BASE", "https://api.openai.com/v1")

@@ -1,265 +1,308 @@
 <div align="center">
 
-# 🏛️ Investment Masters Roundtable
+<h1>🏛️ Investment Masters Roundtable</h1>
 
-### 31位投资大师三阶段圆桌辩论系统
+<h3>37 AI-Powered Investment Masters • 3-Stage Debate System</h3>
 
-**14 位价值投资大师 × 12 位技术分析大师 × 11 位量化信号大师**
-**三阶段分析你的股票 — 产出圆桌辩论纪要 + 技术图表 + 综合投资建议**
+<p><strong>14 Value Investors × 12 Technical Analysts × 11 Quantitative Signal Masters</strong></p>
+<p>Three-stage analysis with real-time market data → Roundtable debate minutes + Technical charts + Investment recommendations</p>
 
-[![Python 3.9+](https://img.shields.io/badge/python-3.9+-3776ab.svg?style=flat-square&logo=python&logoColor=white)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](LICENSE)
-[![LLM: OpenAI Compatible](https://img.shields.io/badge/LLM-OpenAI%20Compatible-412991.svg?style=flat-square&logo=openai&logoColor=white)](https://platform.openai.com/docs/api-reference)
-[![Data: yfinance + akshare](https://img.shields.io/badge/data-yfinance%20%2B%20akshare-orange.svg?style=flat-square)](https://github.com/ranaroussi/yfinance)
+<br/>
 
-[快速开始](#-快速开始) · [项目结构](#-项目结构) · [大师名录](#-37位大师三阶段) · [技术栈](#-技术栈) · [配置说明](#-配置说明)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-3776ab.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-22c55e.svg?style=for-the-badge)](LICENSE)
+[![LLM: OpenAI Compatible](https://img.shields.io/badge/LLM-OpenAI%20Compatible-412991.svg?style=for-the-badge&logo=openai&logoColor=white)](https://platform.openai.com/)
+[![Data: Multi-Market](https://img.shields.io/badge/data-US%20%7C%20CN%20%7C%20HK-f97316.svg?style=for-the-badge)](https://github.com/ranaroussi/yfinance)
+[![Stars](https://img.shields.io/github/stars/LucasYanzy/investment-masters-roundtable?style=for-the-badge&color=eab308)](https://github.com/LucasYanzy/investment-masters-roundtable)
+
+<br/>
+
+[Quick Start](#-quick-start) · [Architecture](#-architecture) · [37 Masters](#-37-masters-across-3-stages) · [中文文档](README_CN.md)
 
 </div>
 
+<br/>
+
 ---
 
-## ✨ 核心亮点
+## ✨ What Makes This Special
 
-| 特性 | 说明 |
-|------|------|
-| 🏛️ **三阶段分析架构** | 基本面定性辩论 → 技术趋势判断 → 量化信号投票，层层递进 |
-| ⚔️ **真实辩论交锋** | 多空阵营代表进行 2 轮 LLM 驱动的对抗辩论，不是简单汇总 |
-| ⚠️ **跨阶段冲突检测** | 基本面 vs 技术面矛盾时独立标注："You are trading against Graham" |
-| 📊 **信号矩阵投票** | 11 位指标大师独立出信号 → 加权投票 → 净方向得分 |
-| 📈 **一键可视化** | K 线图叠加均线/布林/RSI/MACD + 支撑阻力标注 |
-| 🌐 **多市场支持** | 美股 / A 股 / 港股，yfinance + akshare 双源覆盖 |
+> Imagine **Warren Buffett, George Soros, and 35 other legendary investors** sitting around a table, debating whether you should buy a stock — backed by real market data and powered by LLM reasoning.
 
-## 🚀 快速开始
+| Feature | Description |
+|---------|-------------|
+| 🏛️ **Three-Stage Architecture** | Fundamental debate → Technical trend analysis → Quantitative signal voting |
+| ⚔️ **Real Adversarial Debate** | Bull vs. Bear champions engage in multi-round LLM-driven debate — not just summaries |
+| ⚠️ **Cross-Stage Conflict Detection** | Flags when fundamentals and technicals disagree: *"You are trading against Graham"* |
+| 📊 **Signal Matrix Voting** | 11 quantitative masters independently generate signals → weighted vote → net direction |
+| 📈 **One-Click Visualization** | Candlestick chart with MA/Bollinger/RSI/MACD overlays + support/resistance annotations |
+| 🌐 **Multi-Market Support** | US stocks, Chinese A-shares, Hong Kong stocks — via `yfinance` + `akshare` |
+| 🔌 **Any LLM Backend** | Works with GPT-4o, DeepSeek, Qwen, or any OpenAI-compatible API |
 
-```bash
-# 1. 克隆
-git clone https://github.com/yourusername/investment-masters-roundtable.git
-cd investment-masters-roundtable
+---
 
-# 2. 安装依赖
-pip install -r requirements.txt
+## 🏗️ Architecture
 
-# 3. 配置 API 密钥
-cp .env.example .env
-# 编辑 .env，填入 LLM_API_KEY
+```mermaid
+flowchart TB
+    subgraph INPUT["📥 Input"]
+        USER["User: Stock Symbol + Market"]
+    end
 
-# 4. 运行分析
-python run.py --symbol AAPL --market US       # 美股苹果
-python run.py --symbol 000001 --market CN     # A股平安银行
-python run.py --symbol 0700.HK --market HK    # 港股腾讯
-python run.py --web                            # 启动 Web 界面
+    subgraph DATA["⚙️ Data Engine"]
+        direction LR
+        OHLCV["OHLCV\nyfinance + akshare"]
+        FUND["Fundamentals\nPE/PB/ROE/Revenue"]
+        TECH["20+ Indicators\nMA/MACD/RSI/KDJ/BB/..."]
+    end
+
+    subgraph STAGE1["🏛️ Stage 1: Fundamental Debate (Weight: 60%)"]
+        S1M["14 Investment Masters\nBuffett · Munger · Graham · Lynch\nMarks · Wood · Soros · Dalio\nDuan · Zhang · Li · Feng · Qiu · Lin"]
+        S1P["7-Step Process\nIndependent → Camps → 2-Round Debate → Vote"]
+    end
+
+    subgraph STAGE2["📈 Stage 2: Technical Analysis (Weight: 20%)"]
+        S2M["12 Technical Masters\nDow · Wyckoff · Elliott · Nison\nWilder · Appel · Granville · DeMark\nLane · Williams · Elder · ARBR"]
+        S2P["Parallel Analysis\nTrend / Pattern / Volume-Price"]
+    end
+
+    subgraph STAGE3["⚡ Stage 3: Signal Voting (Weight: 20%)"]
+        S3M["11 Signal Masters\nMACD · Bollinger · MA+OBV\nIchimoku · RSI/ADX · KDJ · CCI\nW%R · CMF · Triple Screen · Chaos"]
+        S3P["Signal Matrix → Conflict Debate → Weighted Vote"]
+    end
+
+    subgraph OUTPUT["📊 Output"]
+        MD["📝 Markdown Report"]
+        HTML["🌐 HTML Report"]
+        CHART["📈 Technical Chart"]
+    end
+
+    USER --> DATA
+    DATA --> STAGE1
+    STAGE1 -->|"consensus + dissent"| STAGE2
+    STAGE2 -->|"trend confirmation"| STAGE3
+    STAGE3 --> CROSS["⚠️ Cross-Stage\nConflict Detection"]
+    CROSS --> AGG["🎯 60/20/20\nWeighted Aggregation"]
+    AGG --> OUTPUT
+
+    style INPUT fill:#1e293b,stroke:#3b82f6,color:#e2e8f0
+    style DATA fill:#1e293b,stroke:#f97316,color:#e2e8f0
+    style STAGE1 fill:#1e293b,stroke:#22c55e,color:#e2e8f0
+    style STAGE2 fill:#1e293b,stroke:#eab308,color:#e2e8f0
+    style STAGE3 fill:#1e293b,stroke:#ef4444,color:#e2e8f0
+    style OUTPUT fill:#1e293b,stroke:#8b5cf6,color:#e2e8f0
 ```
 
-## 📁 项目结构
+---
+
+## 🚀 Quick Start
+
+```bash
+# 1. Clone
+git clone https://github.com/LucasYanzy/investment-masters-roundtable.git
+cd investment-masters-roundtable
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Configure API key
+cp .env.example .env
+# Edit .env → set LLM_API_KEY (supports OpenAI / DeepSeek / Qwen)
+
+# 4. Analyze any stock
+python run.py --symbol AAPL --market US       # Apple (US)
+python run.py --symbol 000001 --market CN     # Ping An Bank (China A-share)
+python run.py --symbol 0700.HK --market HK    # Tencent (Hong Kong)
+
+# 5. Launch Web UI
+python run.py --web
+```
+
+### 📋 Output
+
+Each analysis produces:
+- `📝 {symbol}_report.md` — Full roundtable debate minutes
+- `🌐 {symbol}_report.html` — Dark-themed interactive HTML report
+- `📈 {symbol}_chart.png` — Candlestick + indicators chart
+
+---
+
+## 🤖 37 Masters Across 3 Stages
+
+<details>
+<summary><b>🏛️ Stage 1: 14 Investment Masters (Qualitative Debate)</b></summary>
+
+| # | Master | School | Core Framework |
+|---|--------|--------|----------------|
+| 1 | Warren Buffett | Value Investing | Moat, margin of safety, long-term holding |
+| 2 | Charlie Munger | Value Investing | Mental models, inversion thinking |
+| 3 | Benjamin Graham | Value Investing | Intrinsic value, Mr. Market, safety margin |
+| 4 | Peter Lynch | Growth Investing | PEG valuation, invest in what you know |
+| 5 | Howard Marks | Contrarian | Second-level thinking, cycle positioning |
+| 6 | Cathie Wood | Disruptive Innovation | ARK innovation framework |
+| 7 | George Soros | Macro Hedge | Reflexivity theory, trend trading |
+| 8 | Ray Dalio | Macro Hedge | Economic machine, debt cycles, All Weather |
+| 9 | Duan Yongping 段永平 | Pragmatist | Business model first, "ben fen" philosophy |
+| 10 | Zhang Lei 张磊 | Growth Investing | Structural value, dynamic moats |
+| 11 | Li Lu 李录 | Value Investing | Circle of competence, Civilization 3.0 |
+| 12 | Feng Liu 冯柳 | Contrarian | Weak-form system, odds thinking |
+| 13 | Qiu Guolu 邱国鹭 | Value Investing | "Count moons, not stars" |
+| 14 | Lin Yuan 林园 | Consumer Investing | Monopoly brands, "mouth stocks" |
+
+</details>
+
+<details>
+<summary><b>📈 Stage 2: 12 Technical Analysis Masters (Trend / Pattern / Volume)</b></summary>
+
+| # | Master | Core Theory | Focus Area |
+|---|--------|-------------|------------|
+| 1 | Charles Dow | Dow Theory | Primary / secondary / minor trends |
+| 2 | Richard Wyckoff | Wyckoff Method | Volume-price, accumulation/distribution |
+| 3 | Ralph Elliott | Wave Theory | Wave counting, Fibonacci |
+| 4 | Steve Nison | Japanese Candlesticks | Candlestick pattern recognition |
+| 5 | J. Welles Wilder | RSI/DMI/ADX/ATR | Trend strength, volatility |
+| 6 | Gerald Appel | MACD | Moving average convergence divergence |
+| 7 | Joseph Granville | Volume 8 Rules | OBV volume-price validation |
+| 8 | Thomas DeMark | TD Sequential | Precise buy/sell points |
+| 9 | George Lane | Stochastic/KDJ | Overbought/oversold zones |
+| 10 | Larry Williams | Williams %R | Extreme price levels |
+| 11 | Alexander Elder | Triple Screen | Multi-timeframe analysis |
+| 12 | ARBR Team | Sentiment Indicators | Market sentiment gauges |
+
+</details>
+
+<details>
+<summary><b>⚡ Stage 3: 11 Quantitative Signal Masters (Pure Numerical Signals + Debate)</b></summary>
+
+| # | Master | Indicators | Signal Output |
+|---|--------|-----------|---------------|
+| 1 | Gerald Appel | MACD | Golden/death cross + target levels |
+| 2 | John Bollinger | Bollinger Bands | Band breakout/reversion |
+| 3 | Joseph Granville | MA + OBV | Moving average cross + volume validation |
+| 4 | Goichi Hosoda | Ichimoku Cloud | Cloud support/resistance |
+| 5 | J. Welles Wilder | RSI/ADX/ATR/PSAR | Overbought/oversold + trend strength |
+| 6 | George Lane | KDJ | %K/%D crossover |
+| 7 | Donald Lambert | CCI | Channel breakout |
+| 8 | Larry Williams | W%R | Overbought/oversold / divergence |
+| 9 | Marc Chaikin | CMF | Money flow direction |
+| 10 | Alexander Elder | Triple Screen | Multi-timeframe signals |
+| 11 | Bill Williams | Chaos Trading | Alligator/Fractal/AO/AC |
+
+</details>
+
+---
+
+## 📁 Project Structure
 
 ```
 investment-masters-roundtable/
+├── run.py                        # CLI entry + Web launcher
+├── config.py                     # Global config (env-driven)
 │
-├── run.py                        # CLI 入口 + Web 启动器
-├── config.py                     # 全局配置（环境变量驱动）
+├── data_engine/                  # Data layer
+│   ├── fetcher.py                #   OHLCV (yfinance + akshare)
+│   ├── fundamental_data.py       #   Fundamentals (valuation/financials)
+│   ├── technical_indicators.py   #   20+ technical indicators
+│   ├── cache.py                  #   2-level cache (LRU + file)
+│   └── schema.py                 #   Unified data structures
 │
-├── data_engine/                  # 数据层
-│   ├── fetcher.py                #   OHLCV 行情拉取（yfinance + akshare）
-│   ├── fundamental_data.py       #   基本面数据（估值/财务/行业）
-│   ├── technical_indicators.py   #   20+ 技术指标预计算
-│   ├── cache.py                  #   二级缓存（内存 LRU + 文件 pickle）
-│   └── schema.py                 #   统一数据结构定义
+├── masters/                      # 37 masters analysis layer
+│   ├── base_master.py            #   Base class + LLM call + MasterOpinion
+│   ├── registry.py               #   37-master registry
+│   ├── investment_master.py      #   Stage 1: 14 investment masters
+│   ├── technical_master.py       #   Stage 2: 12 technical masters
+│   ├── signal_master.py          #   Stage 3: 11 signal masters
+│   └── skill_references/         #   Master frameworks (.md)
+│       ├── investment_masters/   #     14 value/growth frameworks
+│       ├── technical_masters/    #     12 technical analysis frameworks
+│       └── signal_masters/       #     11 quantitative signal frameworks
 │
-├── masters/                      # 37 位大师分析层
-│   ├── base_master.py            #   大师基类 + LLM 调用 + MasterOpinion
-│   ├── registry.py               #   37 位大师注册表（纯数据）
-│   ├── investment_master.py      #   阶段一: InvestmentMaster（14 位）
-│   ├── technical_master.py       #   阶段二: TechnicalMaster（12 位）
-│   ├── signal_master.py          #   阶段三: SignalMaster（11 位）
-│   └── skill_references/         #   大师投资框架文件（.md）
-│       ├── investment_masters/   #     14 份价值投资框架
-│       ├── technical_masters/    #     12 份技术分析框架
-│       └── signal_masters/       #     11 份量化信号框架
+├── debate_orchestrator/          # Debate coordination layer
+│   ├── orchestrator.py           #   Main orchestrator (3-stage)
+│   ├── stage1_debate.py          #   Stage 1: 7-step debate
+│   ├── stage2_analysis.py        #   Stage 2: parallel analysis
+│   ├── stage3_signals.py         #   Stage 3: signal matrix + debate
+│   ├── cross_stage_conflict.py   #   Cross-stage conflict detection
+│   └── aggregator.py             #   60/20/20 weighted aggregation
 │
-├── debate_orchestrator/          # 辩论协调层
-│   ├── orchestrator.py           #   主编排器（三阶段串行调度）
-│   ├── stage1_debate.py          #   阶段一: 七步辩论流程
-│   ├── stage2_analysis.py        #   阶段二: 并行趋势分析
-│   ├── stage3_signals.py         #   阶段三: 信号矩阵 + 内部辩论
-│   ├── conflict_detector.py      #   阶段内冲突检测
-│   ├── cross_stage_conflict.py   #   跨阶段冲突检测
-│   ├── confidence_scorer.py      #   综合置信度评分
-│   └── aggregator.py             #   三阶段加权聚合（60/20/20）
+├── report_generator/             # Report generation layer
+│   ├── markdown_report.py        #   Markdown roundtable minutes
+│   ├── html_report.py            #   Dark-themed HTML report
+│   └── chart_renderer.py         #   mplfinance technical charts
 │
-├── report_generator/             # 报告生成层
-│   ├── markdown_report.py        #   Markdown 圆桌纪要
-│   ├── html_report.py            #   暗色主题 HTML 报告
-│   └── chart_renderer.py         #   mplfinance 技术图表
+├── web_app/                      # Web interface (Flask)
+│   ├── app.py                    #   Flask application
+│   └── templates/index.html      #   Dark-themed SPA
 │
-├── web_app/                      # Web 界面（可选）
-│   ├── app.py                    #   Flask 应用
-│   └── templates/index.html      #   暗色主题前端
+├── tests/                        # Tests
+│   └── test_smoke.py             #   Smoke tests
 │
-├── tests/                        # 测试
-│   └── test_smoke.py             #   冒烟测试（导入 + 工厂 + hack 检测）
+├── docs/                         # Documentation
+│   └── architecture.md           #   System architecture
 │
-└── docs/                         # 设计文档
+└── examples/                     # Sample outputs
 ```
 
-## 📊 数据流
+---
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    用户输入: AAPL + US                       │
-└────────────────────────┬────────────────────────────────────┘
-                         ▼
-┌─────────────────────────────────────────────────────────────┐
-│  数据引擎                                                    │
-│  ┌──────────┐  ┌──────────────┐  ┌───────────────────────┐  │
-│  │  OHLCV   │  │  基本面数据   │  │  20+ 技术指标预计算    │  │
-│  │ yfinance  │  │  PE/PB/ROE   │  │  MA/MACD/RSI/KDJ/... │  │
-│  │ + akshare │  │  + 行业/估值  │  │  + Elder/Ichimoku/BW │  │
-│  └──────────┘  └──────────────┘  └───────────────────────┘  │
-└────────────────────────┬────────────────────────────────────┘
-                         ▼
-┌─────────────────────────────────────────────────────────────┐
-│  阶段一: 14 位投资大师定性辩论                                │
-│  巴菲特·芒格·格雷厄姆·林奇·马克斯·伍德·索罗斯·达利欧           │
-│  段永平·张磊·李录·冯柳·邱国鹭·林园                            │
-│  → 七步流程: 独立估值 → 阵营划分 → 2轮辩论 → 投票 → 共识     │
-└────────────────────────┬────────────────────────────────────┘
-                         ▼
-┌─────────────────────────────────────────────────────────────┐
-│  阶段二: 12 位技术大师趋势/形态/量价分析                      │
-│  道·威科夫·艾略特·尼森·威尔德·阿佩尔·葛兰碧·德马克·莱恩·...   │
-│  → 并行分析 → 共识支撑/阻力中位数                             │
-└────────────────────────┬────────────────────────────────────┘
-                         ▼
-┌─────────────────────────────────────────────────────────────┐
-│  阶段三: 11 位指标大师纯数字信号                              │
-│  MACD·布林·MA+OBV·一目均衡·RSI/ADX·KDJ·CCI·W%R·CMF·...     │
-│  → 信号矩阵 → 冲突辩论 → 加权投票 → 净方向得分               │
-└────────────────────────┬────────────────────────────────────┘
-                         ▼
-┌─────────────────────────────────────────────────────────────┐
-│  跨阶段冲突检测 + 60/20/20 加权聚合                           │
-│  → ⚠️ "You are trading against Graham" 风险标注              │
-└────────────────────────┬────────────────────────────────────┘
-                         ▼
-┌─────────────────────────────────────────────────────────────┐
-│  报告输出                                                    │
-│  📝 Markdown 圆桌纪要  |  🌐 HTML 可视化报告  |  📈 K线图表  │
-└─────────────────────────────────────────────────────────────┘
-```
+## 🔧 Tech Stack
 
-## 🤖 37位大师（三阶段）
+| Layer | Technology |
+|-------|-----------|
+| **Data Fetching** | `yfinance` (US/HK) + `akshare` (China A-shares) |
+| **Technical Indicators** | `pandas-ta` + pure pandas/numpy fallback |
+| **LLM Integration** | OpenAI-compatible API (GPT-4o / DeepSeek / Qwen) |
+| **Concurrency** | `asyncio` (parallel within stage, serial between stages) |
+| **Visualization** | `mplfinance` + `matplotlib` |
+| **Web Interface** | Flask + dark-themed SPA |
+| **Logging** | Python `logging` with `--verbose` mode |
 
-<details>
-<summary><b>阶段一：14 位投资大师（定性辩论）</b></summary>
+---
 
-| # | 大师 | 学派 | 核心框架 |
-|---|------|------|----------|
-| 1 | 沃伦·巴菲特 | 价值投资 | 护城河、安全边际、长期持有 |
-| 2 | 查理·芒格 | 价值投资 | 多元思维模型、逆向思维 |
-| 3 | 本杰明·格雷厄姆 | 价值投资 | 内在价值、市场先生、安全边际 |
-| 4 | 彼得·林奇 | 成长投资 | PEG 估值、生活中的投资机会 |
-| 5 | 霍华德·马克斯 | 逆向投资 | 第二层思维、周期定位 |
-| 6 | 凯瑟琳·伍德 | 颠覆创新 | ARK 颠覆性创新框架 |
-| 7 | 乔治·索罗斯 | 宏观对冲 | 反身性理论、趋势交易 |
-| 8 | 瑞·达利欧 | 宏观对冲 | 经济机器、债务周期、全天候 |
-| 9 | 段永平 | 实用主义 | 本分、商业模式优先 |
-| 10 | 张磊 | 成长投资 | 长期结构性价值、动态护城河 |
-| 11 | 李录 | 价值投资 | 能力圈、文明 3.0 现代化 |
-| 12 | 冯柳 | 逆向投资 | 弱者体系、赔率思维 |
-| 13 | 邱国鹭 | 价值投资 | 数月亮不数星星 |
-| 14 | 林园 | 消费投资 | 嘴巴股、垄断品牌 |
+## ⚙️ Configuration
 
-</details>
-
-<details>
-<summary><b>阶段二：12 位技术分析大师（趋势/形态/量价）</b></summary>
-
-| # | 大师 | 核心理论 | 分析重点 |
-|---|------|----------|----------|
-| 1 | 查尔斯·道 | 道氏理论 | 主要/次要/短期趋势 |
-| 2 | 理查德·威科夫 | 威科夫方法 | 量价关系、吸筹/派发 |
-| 3 | 拉尔夫·艾略特 | 波浪理论 | 波浪计数、斐波那契 |
-| 4 | 史蒂夫·尼森 | 日本蜡烛图 | K 线形态识别 |
-| 5 | 威尔德 | RSI/DMI/ADX/ATR | 趋势强度、波动率 |
-| 6 | 杰拉尔德·阿佩尔 | MACD | 移动平均收敛发散 |
-| 7 | 约瑟夫·葛兰碧 | 量价八法则 | OBV 量价验证 |
-| 8 | 托马斯·德马克 | TD 序列 | 精确买卖点 |
-| 9 | 乔治·莱恩 | 随机指标 | KDJ 超买超卖 |
-| 10 | 拉里·威廉姆斯 | W%R | 极端价位判断 |
-| 11 | 亚历山大·埃尔德 | 三重滤网 | 多时间框架分析 |
-| 12 | ARBR 团队 | 情绪指标 | 人气意愿、市场情绪 |
-
-</details>
-
-<details>
-<summary><b>阶段三：11 位量化信号大师（纯数字信号 + 辩论投票）</b></summary>
-
-| # | 大师 | 覆盖指标 | 输出信号 |
-|---|------|----------|----------|
-| 1 | Gerald Appel | MACD | 金叉/死叉 + 目标位 |
-| 2 | John Bollinger | 布林带 | 上下轨突破/回归 |
-| 3 | Joseph Granville | MA + OBV | 均线交叉 + 量价验证 |
-| 4 | Goichi Hosoda | 一目均衡表 | 云层支撑/阻力 |
-| 5 | J. Welles Wilder | RSI/ADX/ATR/PSAR | 超买超卖 + 趋势强度 |
-| 6 | George Lane | KDJ | %K/%D 交叉 |
-| 7 | Donald Lambert | CCI | 通道突破 |
-| 8 | Larry Williams | W%R | 超买超卖/背离 |
-| 9 | Marc Chaikin | CMF | 资金流入流出 |
-| 10 | Alexander Elder | 三重滤网 | 多时间框架信号 |
-| 11 | Bill Williams | 混沌操作法 | 鳄鱼线/分形/AO/AC |
-
-</details>
-
-## 🔧 技术栈
-
-| 层 | 技术 |
-|---|------|
-| **数据获取** | `yfinance`（美股/港股）+ `akshare`（A 股） |
-| **技术指标** | `pandas-ta` + 纯 pandas/numpy 降级方案 |
-| **LLM 集成** | OpenAI 兼容 API（GPT-4o / DeepSeek / Qwen） |
-| **并发控制** | `asyncio`（阶段内大师并行，阶段间串行） |
-| **可视化** | `mplfinance` + `matplotlib` |
-| **Web 界面** | Flask + 暗色主题单页应用 |
-| **日志系统** | Python `logging`，支持 `--verbose` 模式 |
-
-## ⚙️ 配置说明
-
-复制 `.env.example` → `.env`：
+Copy `.env.example` → `.env`:
 
 ```ini
-# LLM（支持任何 OpenAI 兼容 API）
+# LLM (any OpenAI-compatible API)
 LLM_API_BASE=https://api.openai.com/v1
 LLM_API_KEY=sk-xxx
 LLM_MODEL=gpt-4o
 
-# 数据
-DEFAULT_PERIOD=2y          # 拉取历史长度
-FMP_API_KEY=               # 可选: financialmodelingprep
+# Data
+DEFAULT_PERIOD=2y          # Historical data length
+FMP_API_KEY=               # Optional: financialmodelingprep
 
-# 阶段权重（总和 = 1.0）
-STAGE1_WEIGHT=0.6          # 基本面
-STAGE2_WEIGHT=0.2          # 趋势确认
-STAGE3_WEIGHT=0.2          # 信号时机
+# Stage Weights (must sum to 1.0)
+STAGE1_WEIGHT=0.6          # Fundamentals
+STAGE2_WEIGHT=0.2          # Technical confirmation
+STAGE3_WEIGHT=0.2          # Signal timing
 ```
 
-## 📈 性能
+---
 
-| 指标 | 数值 |
-|------|------|
-| **LLM 调用** | 37 次基础 + 最多 6 次辩论 = ~43 次 |
-| **分析时间** | 30–120 秒（取决于 LLM 响应速度） |
-| **并发** | 阶段内全部大师并行（14 / 12 / 11 并发） |
-| **缓存 TTL** | 技术数据 1h，基本面 24h |
+## 📈 Performance
 
-## 🤝 贡献
+| Metric | Value |
+|--------|-------|
+| **LLM Calls** | 37 base + up to 6 debate rounds ≈ ~43 calls |
+| **Analysis Time** | 30–120 seconds (depends on LLM response speed) |
+| **Concurrency** | All masters parallel within each stage (14 / 12 / 11) |
+| **Cache TTL** | Technical data: 1h, Fundamentals: 24h |
 
-欢迎 Issue 和 PR！
+---
 
-1. Fork 本仓库
-2. 创建功能分支 (`git checkout -b feature/amazing-feature`)
-3. 提交更改 (`git commit -m 'feat: add amazing feature'`)
-4. 推送 (`git push origin feature/amazing-feature`)
-5. 提交 Pull Request
+## 🤝 Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
 
 ## 📄 License
 
@@ -269,6 +312,8 @@ STAGE3_WEIGHT=0.2          # 信号时机
 
 <div align="center">
 
-**⭐ 如果这个项目对你有帮助，请 Star 支持！**
+**⭐ If this project helps you, please give it a Star!**
+
+**[中文文档 →](README_CN.md)**
 
 </div>

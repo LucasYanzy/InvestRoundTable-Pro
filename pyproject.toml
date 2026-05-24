@@ -1,25 +1,30 @@
 [project]
 name = "investment-masters-roundtable"
 version = "1.0.0"
-description = "31位投资大师三阶段圆桌辩论系统"
+description = "37 AI-powered investment masters debate your stock picks across 3 stages"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.9"
 authors = [
-    {name = "Lucas Yan"},
+    {name = "Lucas Yan", email = "lucasyan@example.com"},
 ]
-keywords = ["investment", "technical-analysis", "llm", "ai", "stock-analysis"]
+keywords = [
+    "investment", "stock-analysis", "technical-analysis",
+    "llm", "ai", "debate", "multi-agent", "quantitative",
+    "value-investing", "trading-signals",
+]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Financial and Insurance Industry",
+    "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
     "Topic :: Office/Business :: Financial :: Investment",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 
 dependencies = [
@@ -27,6 +32,7 @@ dependencies = [
     "akshare>=1.14.0",
     "pandas>=2.2.0",
     "numpy>=1.26.0",
+    "pandas-ta>=0.3.14b",
     "openai>=1.30.0",
     "python-dotenv>=1.0.0",
     "mplfinance>=0.12.10b0",
@@ -35,16 +41,16 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-pandas-ta = ["pandas-ta>=0.3.14b"]
 dev = ["pytest>=8.0", "ruff>=0.4.0"]
 
 [project.scripts]
 roundtable = "run:main"
 
 [project.urls]
-Homepage = "https://github.com/yourusername/investment-masters-roundtable"
-Repository = "https://github.com/yourusername/investment-masters-roundtable"
-Issues = "https://github.com/yourusername/investment-masters-roundtable/issues"
+Homepage = "https://github.com/LucasYanzy/investment-masters-roundtable"
+Repository = "https://github.com/LucasYanzy/investment-masters-roundtable"
+Issues = "https://github.com/LucasYanzy/investment-masters-roundtable/issues"
+Changelog = "https://github.com/LucasYanzy/investment-masters-roundtable/blob/main/CHANGELOG.md"
 
 [tool.ruff]
 line-length = 120
@@ -53,3 +59,10 @@ target-version = "py39"
 [tool.ruff.lint]
 select = ["E", "F", "W", "I"]
 ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["data_engine", "masters", "debate_orchestrator", "report_generator", "web_app", "config"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
