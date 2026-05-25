@@ -1,5 +1,11 @@
 <div align="center">
 
+<!-- Hero Banner -->
+<img src="p_A/poster-main-en.png" alt="Investment Masters Roundtable — AI-Powered Multi-Stage Investment Analysis System" width="100%"/>
+
+<br/>
+<br/>
+
 <h1>🏛️ Investment Masters Roundtable</h1>
 
 <h3>37 AI-Powered Investment Masters • 3-Stage Debate System</h3>
@@ -38,6 +44,16 @@
 | 📈 **One-Click Visualization** | Candlestick chart with MA/Bollinger/RSI/MACD overlays + support/resistance annotations |
 | 🌐 **Multi-Market Support** | US stocks, Chinese A-shares, Hong Kong stocks — via `yfinance` + `akshare` |
 | 🔌 **Any LLM Backend** | Works with GPT-4o, DeepSeek, Qwen, or any OpenAI-compatible API |
+
+---
+
+## 🧬 Design Philosophy: Nuwa Distillation × Darwin Evolution
+
+<div align="center">
+<img src="p_A/poster-nuwa-darwin.png" alt="Nuwa Cognitive Distillation & Darwin Iterative Evolution" width="100%"/>
+</div>
+
+<br/>
 
 ---
 

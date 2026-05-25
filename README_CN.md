@@ -1,5 +1,11 @@
 <div align="center">
 
+<!-- Hero Banner -->
+<img src="p_A/poster-main.png" alt="投资大师圆桌辩论 — AI 驱动多阶段投资分析系统" width="100%"/>
+
+<br/>
+<br/>
+
 <h1>🏛️ 投资大师圆桌辩论系统</h1>
 
 <h3>37 位 AI 驱动的投资大师 · 三阶段辩论架构</h3>
@@ -37,6 +43,16 @@
 | 📈 **一键可视化** | K 线图叠加均线/布林/RSI/MACD + 支撑阻力标注 |
 | 🌐 **多市场支持** | 美股 / A 股 / 港股，yfinance + akshare 双源覆盖 |
 | 🔌 **任意 LLM 后端** | GPT-4o、DeepSeek、Qwen 或任何 OpenAI 兼容 API |
+
+---
+
+## 🧬 设计哲学：女娲蒸馏 × 达尔文进化
+
+<div align="center">
+<img src="p_A/poster-nuwa-darwin.png" alt="女娲蒸馏人格 & 达尔文进化" width="100%"/>
+</div>
+
+<br/>
 
 ---
 
