@@ -47,16 +47,6 @@
 
 ---
 
-## 🧬 Design Philosophy: Nuwa Distillation × Darwin Evolution
-
-<div align="center">
-<img src="p_A/poster-nuwa-darwin.png" alt="Nuwa Cognitive Distillation & Darwin Iterative Evolution" width="100%"/>
-</div>
-
-<br/>
-
----
-
 ## 🏗️ Architecture
 
 ```mermaid
